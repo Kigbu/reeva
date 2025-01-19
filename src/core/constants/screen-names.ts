@@ -9,5 +9,5 @@ export const NOTIFICATIONS_SCREEN = "Notifications";
 export const SEARCH_SCREEN = "Search";
 
 //
-export const MADE_TO_MEASURE = "MadaToMeasure";
+export const ADD_POST = "AddPost";
 export const CUSTOM_ORDERS = "CustomOrders";

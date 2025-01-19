@@ -4,18 +4,11 @@ import { Image, Platform, StatusBar, TouchableOpacity } from "react-native";
 import { h, w } from "core/utils/responsive";
 import { View } from "react-native";
 import colors from "core/theme/colors";
-// import useAuthContext from 'core/hooks/useAuthContext';
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import {
-  ArrowLeft,
-  Bag2,
-  NotificationBing,
-  Profile,
-  SearchNormal,
-} from "iconsax-react-native";
-// import {SHOPPING_BAG} from 'core/constants/screen-names';
-import { family } from "core/theme";
 import AppText from "components/widgets/Text";
+import { Ionicons } from "@expo/vector-icons";
+import MyAppButton from "components/Form/AppButton";
+import usePost from "core/hooks/usePost";
 
 const statusBarHeight = Platform.OS === "android" ? StatusBar.currentHeight : 0;
 
@@ -30,6 +23,7 @@ interface HeaderProps {
   more?: boolean;
   onMorePress?: any;
   bgColor?: string;
+  onPostPress?: any;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -42,14 +36,21 @@ const Header: React.FC<HeaderProps> = ({
   more,
   onMorePress,
   bgColor,
+  onPostPress,
 }: HeaderProps) => {
-  // const {userInfo} = useAuthContext();
+  const { files, isValid, handleSubmit } = usePost();
 
   const insets = useSafeAreaInsets();
 
   // Ensure we respect the top inset on iOS devices with a notch
   const safeAreaStyle =
     Platform.OS === "ios" ? { paddingTop: insets.top + w(16) } : {};
+
+  const isFormValid = () => {
+    if (files.length > 0 && isValid) return true;
+
+    return false;
+  };
 
   return (
     <>
@@ -67,107 +68,64 @@ const Header: React.FC<HeaderProps> = ({
         style={[
           {
             height: h(56),
-            paddingHorizontal: w(24),
-            justifyContent: main ? "space-between" : "flex-start",
+            paddingHorizontal: w(20),
+            justifyContent: main ? "space-between" : "space-between",
             alignItems: "center",
             flexDirection: "row",
-            paddingVertical: h(12),
+            paddingVertical: h(15),
             backgroundColor: bgColor ? bgColor : "white",
             borderBottomWidth: hasBottomBorder === true ? 1 : 0,
-            borderBottomColor: colors.grey400,
+            borderBottomColor: "rgba(226, 232, 240, 1)",
             gap: !main ? w(8) : w(16),
           },
         ]}
       >
         {main && (
-          <View
+          <TouchableOpacity
             style={{
-              borderWidth: w(1),
-              borderColor: "#E1E1E1",
               padding: w(2),
-              borderRadius: w(99),
             }}
           >
-            <View
-              style={{
-                backgroundColor: "#EEE",
-                borderRadius: w(99),
-                padding: w(10),
-                justifyContent: "center",
-                alignItems: "center",
-                width: w(40),
-                height: w(40),
-              }}
-            >
-              {/* {userInfo?.photoUrl ? (
-                <Image
-                  source={{uri: userInfo?.photoUrl}}
-                  style={{
-                    width: w(40),
-                    height: w(40),
-                    borderRadius: w(100),
-                  }}
-                />
-              ) : ( */}
-              <Profile variant={"Bulk"} color={"#000000"} size={w(20)} />
-              {/* )} */}
-            </View>
-          </View>
+            {/* <Profile variant={"Bulk"} color={"#000000"} size={w(20)} /> */}
+            <Image
+              style={{ height: w(24), width: w(24) }}
+              source={require("../../assets/icons/sort.png")}
+            />
+          </TouchableOpacity>
         )}
 
         {main && (
-          <View style={{ marginRight: "auto" }}>
-            <AppText
-              style={{
-                fontFamily: family.ExtraBold,
-                fontSize: w(16),
-                lineHeight: w(24),
-                color: "#1F1F1F",
-              }}
-            >
-              {`Hi, Doe 😊`}
-            </AppText>
-          </View>
-        )}
-
-        {main && (
-          <View style={{ flexDirection: "row", gap: w(20) }}>
-            {/* <SearchNormal
-              size={w(22)}
-              variant={'Outline'}
-              color={colors.grey400}
-            /> */}
-
-            <TouchableOpacity onPress={() => {}}>
-              <Bag2 size={w(24)} variant={"Outline"} color={colors.grey400} />
-            </TouchableOpacity>
-
-            <NotificationBing
-              size={w(24)}
-              variant={"Outline"}
-              color={colors.grey400}
+          <View style={{}}>
+            <Image
+              style={{ height: w(27), width: w(33.63) }}
+              source={require("../../assets/icons/logo.png")}
             />
           </View>
+        )}
+
+        {main && (
+          <TouchableOpacity style={{ flexDirection: "row", gap: w(20) }}>
+            <Image
+              style={{ height: w(24), width: w(24) }}
+              source={require("../../assets/icons/instant_mix.png")}
+            />
+          </TouchableOpacity>
         )}
 
         {!main && (
           <TouchableOpacity
             style={{
-              width: w(32),
-              height: w(32),
-              borderRadius: w(32),
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
-              borderWidth: w(1),
-              borderColor: colors.grey100,
             }}
             onPress={() => navigation.goBack()}
           >
-            <ArrowLeft
-              variant={"Outline"}
-              size={w(12)}
+            <Ionicons
+              name={"add"}
+              size={w(24)}
               color={!bgColor ? "#666666" : "white"}
+              style={{ transform: [{ rotate: "45deg" }] }}
             />
           </TouchableOpacity>
         )}
@@ -176,10 +134,10 @@ const Header: React.FC<HeaderProps> = ({
           <>
             <AppText
               style={{
-                fontFamily: family.ExtraBold,
-                // fontWeight: '600',
-                fontSize: w(20),
-                lineHeight: w(26),
+                // fontFamily: family.ExtraBold,
+                fontWeight: "800",
+                fontSize: w(18),
+                lineHeight: w(25.2),
                 color: !bgColor ? colors.grey950 : "white",
               }}
             >
@@ -190,6 +148,17 @@ const Header: React.FC<HeaderProps> = ({
                 : route.name}
             </AppText>
           </>
+        )}
+
+        {!main && (
+          <View style={{ height: w(35), width: w(70) }}>
+            <MyAppButton
+              buttonVariant={"solid"}
+              label={`Post`}
+              disabled={!isValid}
+              onPress={onPostPress}
+            />
+          </View>
         )}
       </View>
     </>

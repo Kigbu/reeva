@@ -1,27 +1,11 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import AppContainer from "core/navigation/AppContainer";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import PostProvider from "core/store/providers/post-provider";
+import { StyleSheet } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 
 export default function App() {
-  const _config = {
-    screens: {
-      NewPassword: "restorePassword",
-      EmailVerified: "verifyEmail",
-    },
-  };
-
-  const linking = {
-    prefixes: [
-      "aibanc://",
-      "https://www.mydinki.com",
-      "https://mydinki.com",
-      "http://www.mydinki.com",
-    ],
-    _config,
-  };
-
   const MyTheme = {
     ...DefaultTheme,
     colors: {
@@ -32,11 +16,15 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer linking={linking} theme={MyTheme}>
-        <AppContainer />
-      </NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
+        <PostProvider>
+          <AppContainer />
+          <Toast
 
-      {/* <StatusBar style="auto" /> */}
+          // config={toastConfig}
+          />
+        </PostProvider>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }

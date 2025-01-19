@@ -1,3 +1,5 @@
+import Toast from "react-native-toast-message";
+
 export const L = (...args: any) => {
   __DEV__ && console.log(...args);
 };
@@ -36,4 +38,28 @@ export const formatNumberToDecimal = (num: number) => {
     // Return the number as is if there are no decimals
     return num;
   }
+};
+
+export const showToast = (
+  type: string,
+  onHide: any,
+  text1 = "-",
+  text2 = "-"
+) => {
+  Toast.show({
+    position: "bottom",
+    bottomOffset: 60,
+    type: type,
+    text1: text1,
+    text2: text2,
+    onHide: onHide,
+  });
+};
+
+export const getRandomDoubleDigits = () => {
+  return Math.floor(Math.random() * 99) + 1;
+};
+
+export const getRandomSingleDigit = () => {
+  return Math.floor(Math.random() * 9) + 1;
 };

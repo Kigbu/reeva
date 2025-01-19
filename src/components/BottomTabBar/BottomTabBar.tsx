@@ -79,15 +79,21 @@ const BottomTabBar = ({
 
           let icon_link: any = "";
           if (icon === "home")
-            icon_link = require(`../../../assets/icons/home.png`);
+            icon_link = require(`../../assets/icons/home.png`);
           else if (icon === "sms")
-            icon_link = require(`../../../assets/icons/sms.png`);
+            icon_link = require(`../../assets/icons/sms.png`);
           else if (icon === "search")
-            icon_link = require(`../../../assets/icons/search.png`);
+            icon_link = require(`../../assets/icons/search.png`);
           else if (icon === "notifications")
-            icon_link = require(`../../../assets/icons/notifications.png`);
+            icon_link = require(`../../assets/icons/notifications.png`);
           else if (icon === "account")
-            icon_link = require(`../../../assets/icons/account.png`);
+            icon_link = require(`../../assets/icons/account.png`);
+
+          let icon_opacity = 1;
+
+          if (icon !== "account") {
+            icon_opacity = isFocused ? 1 : 0.5;
+          }
 
           return (
             <TouchableOpacity
@@ -108,7 +114,10 @@ const BottomTabBar = ({
                 color={itemColor}
               /> */}
 
-              <Image source={icon_link} style={{ height: 24, width: 24 }} />
+              <Image
+                source={icon_link}
+                style={{ height: 24, width: 24, opacity: icon_opacity }}
+              />
             </TouchableOpacity>
           );
         })}
