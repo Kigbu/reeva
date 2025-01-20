@@ -17,6 +17,7 @@ export default class FileUpload {
   cloudfrontUrl!: string;
   fileCopyUri!: string;
   duration!: number;
+  thumbnail: any;
 
   constructor(dto: any = null) {
     if (dto) {
@@ -29,6 +30,7 @@ export default class FileUpload {
       this.preview = dto.filePreview || "";
       this.isPrimary = !!dto.isPrimary;
       this.cloudfrontUrl = dto.cloudfrontUrl;
+      this.thumbnail = dto.thumbnail;
     }
   }
 }

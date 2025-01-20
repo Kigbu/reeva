@@ -8,7 +8,7 @@ export const ERROR = "error";
 export const MAX_IMAGES = "Maximum of 5 images can be exceeded";
 export const NO_IMAGE = "No Image Selected";
 export const REMOVE_IMG_TRY_AGAIN = "Remove images and try again";
-export const SELECT_IMG = "Select images and try again";
+export const SELECT_IMG = "Select media and try again";
 export const REDIRECT = "You will be redirected!";
 export const TRY_AGAIN = "Please try again!";
 

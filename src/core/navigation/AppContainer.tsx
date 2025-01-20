@@ -2,10 +2,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { AppStackParamList } from "./types";
 import Header from "components/Header/Header";
-import { ADD_POST, MY_TABS } from "core/constants/screen-names";
+import { ADD_POST, EDIT_COVER, MY_TABS } from "core/constants/screen-names";
 import AlertBox from "components/AlertBox";
 import BottomTab from "./BottomTab";
 import AddPost from "screens/Post/AddPost";
+import EditCover from "screens/Post/EditCover";
 
 const defaultHeaderOptions = {
   headerShown: true,
@@ -61,6 +62,33 @@ export default function AppContainer() {
             />
           ),
           title: "Exclusive Post",
+        }}
+      />
+
+      <Stack.Screen
+        name={EDIT_COVER}
+        component={EditCover}
+        options={{
+          headerShown: true,
+          header: ({ navigation, route, options }: any) => (
+            <Header
+              navigation={navigation}
+              route={route}
+              options={options}
+              hasBackBtn
+              hasBottomBorder={true}
+              buttonLabel={`Save`}
+              onPostPress={() => {
+                // Trigger the Post action here
+                const params = route.params || {};
+                if (params.onPostPress) {
+                  params.onPostPress();
+                }
+              }}
+            />
+          ),
+          title: "Edit Cover",
+          // presentation: "transparentModal",
         }}
       />
     </Stack.Navigator>

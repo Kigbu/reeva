@@ -14,6 +14,7 @@ import PostCard from "./elements/PostCard";
 import EmptyListComp from "components/EmptyListComp/EmptyListComp";
 import usePost from "core/hooks/usePost";
 import { L } from "core/utils/helpers";
+import Creators from "./elements/Creators";
 
 export default function Home() {
   const navigation = useNavigation<NativeStackNavigationProp<any, any>>();
@@ -83,8 +84,9 @@ export default function Home() {
               // await loadMoreOrders();
             }}
             ListHeaderComponent={() => (
-              <View style={{}}>
+              <View style={{ gap: w(24) }}>
                 <AdvertCards />
+                <Creators />
               </View>
             )}
             refreshControl={
@@ -106,7 +108,7 @@ export default function Home() {
         </View>
       </SafeAreaComp>
 
-      <View style={{ position: "absolute", bottom: w(120), right: w(84) }}>
+      <View style={{ position: "absolute", bottom: w(100), right: w(84) }}>
         <MyFAB
           disabled={false}
           onPress={() => {

@@ -68,7 +68,7 @@ export default function PostCard({ item }: PostCardProps) {
               style={{ gap: w(4), flexDirection: "row", alignItems: "center" }}
             >
               <AppText
-                type="header"
+                // type="header"
                 style={{
                   color: "#0F1419",
                   fontSize: w(15),
@@ -80,7 +80,7 @@ export default function PostCard({ item }: PostCardProps) {
                 {item?.userName}
               </AppText>
               <AppText
-                type="header"
+                // type="header"
                 style={{
                   color: "#0F1419",
                   fontSize: w(15),
@@ -92,7 +92,7 @@ export default function PostCard({ item }: PostCardProps) {
                 .
               </AppText>
               <AppText
-                type="header"
+                // type="header"
                 style={{
                   color: "#0F1419",
                   fontSize: w(15),
@@ -124,7 +124,7 @@ export default function PostCard({ item }: PostCardProps) {
                   source={require("../../../assets/images/logo-dark.png")}
                 />
                 <AppText
-                  type="header"
+                  // type="header"
                   style={{
                     color: "#0F1419",
                     fontSize: w(10),
@@ -144,7 +144,7 @@ export default function PostCard({ item }: PostCardProps) {
           </View>
           <View style={{ width: "87%", marginTop: -w(8) }}>
             <AppText
-              type="header"
+              // type="header"
               style={{
                 color: "#0F1419",
                 fontSize: w(15),

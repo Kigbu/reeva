@@ -5,10 +5,14 @@ import colors from "core/theme/colors";
 import FileUpload from "core/models/file-upload.model";
 import * as FileSystem from "expo-file-system";
 import * as ImagePicker from "expo-image-picker";
-import { CloseCircle } from "iconsax-react-native";
+// import { CloseCircle } from "iconsax-react-native";
 import { L } from "core/utils/helpers";
 import { Video, ResizeMode } from "expo-av";
 import { useVideoPlayer, VideoView } from "expo-video";
+import AppText from "./widgets/Text";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { EDIT_COVER } from "core/constants/screen-names";
 
 interface AddMediaFilesProps {
   files: FileUpload[];
@@ -21,6 +25,7 @@ export default function AddMediaFiles({
   setFiles,
   aspectRatio,
 }: AddMediaFilesProps) {
+  const navigation = useNavigation<NativeStackNavigationProp<any, any>>();
   const [maxAllowedFiles, setMaxAlloedFiles] = React.useState<number>(5);
   const videoRef = React.useRef<any>(null);
 
@@ -155,8 +160,6 @@ export default function AddMediaFiles({
         contentContainerStyle={{
           flexDirection: "row",
           alignItems: "center",
-          // justifyContent: 'space-between',
-          // flexWrap: "wrap",
           gap: w(14),
           paddingVertical: w(8),
           paddingRight: w(40),
@@ -167,7 +170,11 @@ export default function AddMediaFiles({
             return (
               <View
                 key={i.toString()}
-                style={{ backgroundColor: colors.grey50 }}
+                style={{
+                  backgroundColor: colors.grey50,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               >
                 <Video
                   ref={videoRef}
@@ -183,16 +190,81 @@ export default function AddMediaFiles({
                   isLooping
                   onPlaybackStatusUpdate={(status) => {}}
                 />
+
+                {file.thumbnail && (
+                  <View
+                    style={{
+                      position: "absolute",
+                      left: w(8),
+                      top: w(8),
+                      borderWidth: w(2),
+                      borderColor: "rgba(244, 188, 30, 1)",
+                      borderRadius: w(4),
+                    }}
+                  >
+                    <Image
+                      source={{
+                        uri: file.thumbnail,
+                      }}
+                      style={{}}
+                      height={40}
+                      width={40}
+                    />
+                  </View>
+                )}
+
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate(EDIT_COVER, { uri: file.uri });
+                  }}
+                  style={{
+                    backgroundColor: "rgba(17, 16, 16, 0.4)",
+                    paddingVertical: w(5),
+                    paddingHorizontal: w(8),
+                    position: "absolute",
+                    bottom: w(6),
+                    width: "80%",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <AppText
+                    style={{
+                      color: "rgba(255, 255, 255, 1)",
+                      fontSize: w(11),
+                      // fontFamily: family.Bold,
+                      fontWeight: "500",
+                      lineHeight: w(13),
+                    }}
+                  >
+                    Edit Cover
+                  </AppText>
+                </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
                     removeImage(file.name);
                   }}
-                  style={{ position: "absolute", right: -w(8), top: -w(8) }}
+                  style={{
+                    position: "absolute",
+                    right: -w(8),
+                    top: -w(8),
+                    backgroundColor: "rgba(17, 16, 16, 0.4)",
+                    padding: w(4),
+                    borderRadius: w(99),
+                    height: w(24),
+                    width: w(24),
+                  }}
                 >
-                  <CloseCircle
+                  {/* <CloseCircle
                     variant={"Bulk"}
                     color={colors.grey500}
                     size={w(24)}
+                  /> */}
+                  <Image
+                    source={require("../assets/icons/x-w.png")}
+                    style={{ height: 16, width: 16 }}
+
+                    // style={{ transform: [{ rotate: "45deg" }] }}
                   />
                 </TouchableOpacity>
               </View>
@@ -213,12 +285,27 @@ export default function AddMediaFiles({
                 onPress={() => {
                   removeImage(file.name);
                 }}
-                style={{ position: "absolute", right: -w(8), top: -w(8) }}
+                style={{
+                  position: "absolute",
+                  right: -w(8),
+                  top: -w(8),
+                  backgroundColor: "rgba(17, 16, 16, 0.4)",
+                  padding: w(4),
+                  borderRadius: w(99),
+                  height: w(24),
+                  width: w(24),
+                }}
               >
-                <CloseCircle
-                  variant={"Bulk"}
-                  color={colors.grey500}
-                  size={w(24)}
+                {/* <CloseCircle
+                    variant={"Bulk"}
+                    color={colors.grey500}
+                    size={w(24)}
+                  /> */}
+                <Image
+                  source={require("../assets/icons/x-w.png")}
+                  style={{ height: 16, width: 16 }}
+
+                  // style={{ transform: [{ rotate: "45deg" }] }}
                 />
               </TouchableOpacity>
             </View>

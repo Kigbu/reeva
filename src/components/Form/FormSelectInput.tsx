@@ -2,6 +2,7 @@ import React from "react";
 import { Controller } from "react-hook-form";
 import {
   DimensionValue,
+  Image,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -10,7 +11,6 @@ import { SelectItem } from "core/interfaces/select-item.interface";
 import { w } from "core/utils/responsive";
 import SelectModal from "./elements/SelectModal";
 import AppText from "components/widgets/Text";
-import { ArrowDown2 } from "iconsax-react-native";
 import colors from "core/theme/colors";
 
 interface FormSelectInputProps {
@@ -104,10 +104,11 @@ const FormSelectInput = React.memo(
                       {getSelectedLabel(field.value)}
                     </AppText>
 
-                    <ArrowDown2
-                      variant={"Linear"}
-                      color={colors.grey600}
-                      size={20}
+                    <Image
+                      source={require("../../assets/icons/arrow-down.png")}
+                      style={{ height: 16, width: 16 }}
+
+                      // style={{ transform: [{ rotate: "45deg" }] }}
                     />
                   </View>
                   {error?.message && (

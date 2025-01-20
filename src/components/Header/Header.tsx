@@ -24,6 +24,7 @@ interface HeaderProps {
   onMorePress?: any;
   bgColor?: string;
   onPostPress?: any;
+  buttonLabel?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -37,6 +38,7 @@ const Header: React.FC<HeaderProps> = ({
   onMorePress,
   bgColor,
   onPostPress,
+  buttonLabel,
 }: HeaderProps) => {
   const { files, isValid, handleSubmit } = usePost();
 
@@ -121,11 +123,18 @@ const Header: React.FC<HeaderProps> = ({
             }}
             onPress={() => navigation.goBack()}
           >
-            <Ionicons
+            {/* <Ionicons
               name={"add"}
               size={w(24)}
               color={!bgColor ? "#666666" : "white"}
               style={{ transform: [{ rotate: "45deg" }] }}
+            /> */}
+
+            <Image
+              source={require("../../assets/icons/x.png")}
+              style={{ height: 28, width: 28 }}
+
+              // style={{ transform: [{ rotate: "45deg" }] }}
             />
           </TouchableOpacity>
         )}
@@ -154,8 +163,8 @@ const Header: React.FC<HeaderProps> = ({
           <View style={{ height: w(35), width: w(70) }}>
             <MyAppButton
               buttonVariant={"solid"}
-              label={`Post`}
-              disabled={!isValid}
+              label={buttonLabel ? buttonLabel : `Post`}
+              // disabled={!isValid}
               onPress={onPostPress}
             />
           </View>

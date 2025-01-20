@@ -1,10 +1,10 @@
 // import { useLayout } from "core/hooks";
 import AppText from "components/widgets/Text";
 import { SelectItem } from "core/interfaces/select-item.interface";
-import { CloseSquare } from "iconsax-react-native";
 import React from "react";
 import {
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
@@ -13,6 +13,7 @@ import {
 import colors from "core/theme/colors";
 import { w } from "core/utils/responsive";
 import Modal from "react-native-modal";
+import { Ionicons } from "@expo/vector-icons";
 
 interface SelectModalProps {
   visible: boolean;
@@ -42,7 +43,17 @@ const SelectModal: React.FC<SelectModalProps> = React.memo(
             </AppText>
           </View>
           <TouchableOpacity onPress={onDismiss}>
-            <CloseSquare variant={"Broken"} color={colors.grey500} size={24} />
+            {/* <Ionicons
+              variant={"close"}
+              style={{ color: colors.grey800 }}
+              size={24}
+            /> */}
+            <Image
+              source={require("../../../assets/icons/x.png")}
+              style={{ height: 28, width: 28 }}
+
+              // style={{ transform: [{ rotate: "45deg" }] }}
+            />
           </TouchableOpacity>
         </View>
 

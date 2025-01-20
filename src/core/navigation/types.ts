@@ -5,7 +5,7 @@ export type AppStackParamList = {
   MyTabs: NavigatorScreenParams<ButtomTabStackParamList> | undefined;
   AlertBox: undefined;
   AddPost: undefined;
-  OutfitDetails: undefined;
+  EditCover: undefined;
 };
 
 export type ButtomTabStackParamList = {

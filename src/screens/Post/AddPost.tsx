@@ -29,7 +29,10 @@ import {
 import {
   ERROR,
   MAX_IMAGES,
+  NO_IMAGE,
   REMOVE_IMG_TRY_AGAIN,
+  SELECT_IMG,
+  SUCCESS,
 } from "core/constants/strings";
 import { Post } from "data/app.data";
 import { MY_TABS } from "core/constants/screen-names";
@@ -63,7 +66,12 @@ export default function AddPost() {
 
   const onSubmit = (data: any) => {
     // Handle form submission logic here
-    console.log("Post submitted:", data);
+    // console.log("Post submitted:", data);
+
+    if (files.length == 0) {
+      showToast(ERROR, () => {}, NO_IMAGE, SELECT_IMG);
+      return;
+    }
 
     if (files.length > 5) {
       showToast(ERROR, () => {}, MAX_IMAGES, REMOVE_IMG_TRY_AGAIN);
@@ -82,13 +90,15 @@ export default function AddPost() {
     };
 
     setPosts((prev: Post[]) => [post_data, ...prev]);
-    // Platform.OS === "ios"
-    //   ? navigation.navigate(MY_TABS)
-    //   : navigation.reset({
-    //       index: 0,
-    //       routes: [{ name: MY_TABS }],
-    //     });
-    navigation.navigate(MY_TABS);
+
+    showToast(
+      SUCCESS,
+      () => {
+        navigation.navigate(MY_TABS);
+      },
+      "Post added successfully",
+      "You will be redirected in 3 sec"
+    );
 
     reset({ body: "", category: null });
     setFiles([]);
@@ -117,7 +127,7 @@ export default function AddPost() {
             />
 
             <AppText
-              type="header"
+              // type="header"
               style={{
                 color: "#0F1419",
                 fontSize: w(14),

@@ -1,6 +1,7 @@
 import React from "react";
 import {
   ActivityIndicator,
+  Image,
   StyleProp,
   TouchableOpacity,
   ViewStyle,
@@ -8,7 +9,6 @@ import {
 import AppText from "components/widgets/Text";
 import { h, w } from "core/utils/responsive";
 import { View } from "react-native";
-import { Add } from "iconsax-react-native";
 
 export const btnTypes = {
   WITH_TEXT: "btnWithTxt",
@@ -89,7 +89,12 @@ export default function MyFAB({
         {loading ? (
           <ActivityIndicator color={"white"} size={"small"} />
         ) : (
-          <Add variant={"Linear"} color="white" size={w(32)} />
+          <Image
+            source={require("../../assets/icons/x.png")}
+            style={{ height: 28, width: 28, transform: [{ rotate: "45deg" }] }}
+
+            // style={{ transform: [{ rotate: "45deg" }] }}
+          />
         )}
       </TouchableOpacity>
     </View>

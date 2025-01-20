@@ -10,4 +10,4 @@ export const SEARCH_SCREEN = "Search";
 
 //
 export const ADD_POST = "AddPost";
-export const CUSTOM_ORDERS = "CustomOrders";
+export const EDIT_COVER = "EditCover";
